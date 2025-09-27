@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GoalGenius</title>
+  <link rel="stylesheet" href="study.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>GoalGenius</h1>
+        <div class="subtitle">Create tasks, set reminders, track progress — all stored locally in your browser.</div>
+      </div>
+      <div class="controls">
+        <div class="chip" id="stats">Tasks: 0 • Completed: 0</div>
+        <input type="file" id="importFile" accept="application/json" style="display:none">
+      </div>
+    </header>
+
+    <div class="grid">
+      <div class="panel">
+        <h3 style="margin:0">Add / Edit Task</h3>
+        <div style="color:var(--muted);font-size:13px;margin-top:6px">Tip: Use titles like "Math — Chapter 4" and set reminders.</div>
+
+        <form id="taskForm">
+          <input type="hidden" id="taskId">
+          <label>Title</label>
+          <input id="title" required placeholder="e.g., Physics — Wave Optics">
+
+          <label>Subject / Tag</label>
+          <input id="subject" placeholder="e.g., Physics, Math, CS">
+
+          <div class="row">
+            <div class="small">
+              <label>Date</label>
+              <input type="date" id="date">
+            </div>
+            <div class="small">
+              <label>Time</label>
+              <input type="time" id="time">
+            </div>
+          </div>
+
+          <label>Duration (minutes)</label>
+          <input type="number" id="duration" min="1" placeholder="e.g., 45">
+
+          <label>Priority</label>
+          <select id="priority">
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+          </select>
+
+          <label>Notes</label>
+          <textarea id="notes" rows="4" placeholder="Optional notes or checklist"></textarea>
+
+          <label style="margin-top:10px"><input type="checkbox" id="remind"> Set browser reminder (only works while page is open)</label>
+
+          <div style="display:flex;gap:8px">
+            <button type="submit">Save Task</button>
+            <button type="button" class="ghost" id="resetBtn">Clear</button>
+          </div>
+        </form>
+
+        <div class="progress-wrap">
+          <div style="display:flex;justify-content:space-between;align-items:center"><strong>Overall Progress</strong><span id="progressPct">0%</span></div>
+          <div class="progress" style="margin-top:8px"><i id="progressBar"></i></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel">
+          <div class="toolbar">
+            <div class="controls">
+              <input id="search" placeholder="Search title or subject" style="padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit">
+              <select id="filterStatus" style="padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit">
+                <option value="all">All</option>
+                <option value="active">Active</option>
+                <option value="completed">Completed</option>
+              </select>
+              <select id="sortBy" style="padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit">
+                <option value="date_asc">Date ↑</option>
+                <option value="date_desc">Date ↓</option>
+                <option value="priority">Priority</option>
+              </select>
+            </div>
+            <div>
+              <button id="addSample" class="ghost">Add Sample Tasks</button>
+            </div>
+          </div>
+
+          <div id="list" class="card-list"></div>
+
+          <div class="timeline" id="timeline">
+            <strong>Timeline (next 10 upcoming)</strong>
+            <div id="timelineList" style="margin-top:8px"></div>
+          </div>
+
+        </div>
+        <footer>
+          
+        </footer>
+      </div>
+    </div>
+  </div>
+  <script src="study.js"></script>
+</body>
+</html>
